@@ -12,7 +12,7 @@ export const apiGetRequest = async (ip) => {
       `https://api.ipstack.com/${ip}`,
       {
         params: {
-          access_key: 'edd63b3bf666122a74d874ff048f788c',
+          access_key: 'd7557820373f6cc17650656ee6fd2602',
         },
       },
       config

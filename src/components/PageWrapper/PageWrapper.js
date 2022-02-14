@@ -33,6 +33,8 @@ const PageWrapper = () => {
       if (Object.keys(searchedItem).length)
         setHistoricSearches([searchedItem, ...historicSearches]);
       setSearchedItem(apiRequestResult.data);
+    } else {
+      alert('Something went wrong');
     }
   };
 
