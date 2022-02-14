@@ -9,10 +9,10 @@ export const apiGetRequest = async (ip) => {
       },
     };
     return await axios.get(
-      `http://api.ipstack.com/${ip}`,
+      `https://api.ipstack.com/${ip}`,
       {
         params: {
-          access_key: 'a35750cf30302e95b5af80198ced1d2e',
+          access_key: 'edd63b3bf666122a74d874ff048f788c',
         },
       },
       config
