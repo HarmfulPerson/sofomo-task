@@ -10,21 +10,22 @@ import { mapNames } from '../../consts/main.js';
 
 const PageWrapper = () => {
   const classes = useStyles();
-  const [geolocationDataPresent, setGeolocationDataPresent] =
-    React.useState(null);
+  const [geolocationUserData, setGeolocationUserData] = React.useState(null);
   const [inputIp, setInputIp] = React.useState('');
   const [searchedItem, setSearchedItem] = React.useState({});
   const [historicSearches, setHistoricSearches] = React.useState([]);
 
   React.useEffect(() => {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    handleGetMyIp();
   }, []);
 
-  const showPosition = (position) => {
-    setGeolocationDataPresent({
-      longitude: position.coords.longitude,
-      latitude: position.coords.latitude,
-    });
+  const handleGetMyIp = async () => {
+    const apiRequestResult = await apiGetRequest('check');
+    if (apiRequestResult.status === 200) {
+      setGeolocationUserData(apiRequestResult.data);
+    } else {
+      alert('Something went wrong');
+    }
   };
 
   const handleApiRequest = async () => {
@@ -32,6 +33,8 @@ const PageWrapper = () => {
     if (apiRequestResult.status === 200) {
       if (!apiRequestResult.data.success) {
         alert('Something went wrong');
+
+        return;
       }
       if (Object.keys(searchedItem).length)
         setHistoricSearches([searchedItem, ...historicSearches]);
@@ -56,15 +59,15 @@ const PageWrapper = () => {
   return (
     <div className={classes.PageWrapper}>
       <SearchList listOfSearches={historicSearches} />
-      {geolocationDataPresent && (
+      {geolocationUserData && (
         <div className={classes.mapsAndSearchFormWrapper}>
           <div className={classes.mapAndInfoCardWrapper}>
             <MapRender
               nameOfMap={mapNames.homeMap}
-              searchedItem={geolocationDataPresent}
+              searchedItem={geolocationUserData}
             />
             <InformationComponent
-              searchedItemInformations={geolocationDataPresent}
+              searchedItemInformations={geolocationUserData}
             />
           </div>
           <form className={classes.formWrapper}>

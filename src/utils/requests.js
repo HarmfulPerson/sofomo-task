@@ -18,7 +18,6 @@ export const apiGetRequest = async (ip) => {
       config
     );
   } catch (error) {
-    console.log(error);
     return error.response;
   }
 };
