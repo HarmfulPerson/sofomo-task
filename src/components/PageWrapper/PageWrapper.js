@@ -31,11 +31,6 @@ const PageWrapper = () => {
   const handleApiRequest = async () => {
     const apiRequestResult = await apiGetRequest(inputIp);
     if (apiRequestResult.status === 200) {
-      if (!apiRequestResult.data.success) {
-        alert('Something went wrong');
-
-        return;
-      }
       if (Object.keys(searchedItem).length)
         setHistoricSearches([searchedItem, ...historicSearches]);
       setSearchedItem(apiRequestResult.data);
